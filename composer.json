@@ -1,0 +1,23 @@
+{
+    "name": "gabela/gabela-users",
+    "description": "Gabela user's module",
+    "type": "plugin",
+    "version": "1.0",
+    "keywords": ["gabela", "users", "management"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ntabethemba Ntshoza",
+            "email": "bmaneza@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2.5 || ^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Gabela\\Users\\Controller\\": "gabela-users/controllers/",
+            "Gabela\\Users\\Model\\": "gabela-users/models/"
+        }
+    }
+}
