@@ -44,7 +44,7 @@ class LoginController
                 return redirect('/tasks');
             } else {
                 // Authentication failed, show an error message
-                $loginError = 'User login failed.';
+                getRequired('User login failed.');
                 $this->logger->critical('User login failed...');
 
                 return redirect('/');
