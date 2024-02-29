@@ -4,9 +4,10 @@ namespace Gabela\Users\Controller;
 
 getRequired(USER_MODEL);
 
-use Gabela\Model\User;
-use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use Gabela\Model\User;
+use Gabela\Core\ClassManager;
+use Monolog\Handler\StreamHandler;
 
 class LoginController
 {
@@ -15,15 +16,21 @@ class LoginController
      */
     private $logger;
 
+    /**
+     * @var ClassManager
+     */
+    private $classManager;
+
     public function __construct()
     {
         $this->logger = new Logger('registration-controller');
         $this->logger->pushHandler(new StreamHandler('var/System.log', Logger::DEBUG));
+        $this->classManager = new ClassManager();
     }
 
     public function login()
     {
-        $user = new User();
+        $user = $this->classManager->createInstance(User::class);
 
         // Check if the user is already logged in, then redirect to viewAllTasks.php
         if (isset($_SESSION['user_id'])) {
