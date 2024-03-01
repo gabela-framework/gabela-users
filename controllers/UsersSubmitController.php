@@ -27,6 +27,7 @@ class UsersSubmitController
 
     public function submit()
     {
+        /**  @var User $user  */
         $user = $this->classManager->createInstance(User::class);
         // Check if the user is logged in
         if (!isset($_SESSION['user_id'])) {
@@ -39,7 +40,7 @@ class UsersSubmitController
             $user->setUserId($_POST['id']);
             $user->setName($_POST['name']);
             $user->setCity($_POST['city']);
-            // $user->setEmail($_POST['email']);
+            $user->setRole($_POST['role']);
 
             try {
                 // Update the user in the database
