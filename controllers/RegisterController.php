@@ -28,6 +28,7 @@ class RegisterController
 
     public function register()
     {
+        /**  @var User $user  */
         $user = $this->classManager->createInstance(User::class);
 
         // Handle login form submission logic

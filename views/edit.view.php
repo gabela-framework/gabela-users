@@ -7,15 +7,15 @@
  * @copyright Copyright © 2023 VMP By Maneza
  */
 
-// require __DIR__ . '/../../models/Users.php';
-require __DIR__ . '/../models/Users.php';
+// require __DIR__ . '/../../models/User.php';
+require __DIR__ . '/../models/User.php';
 //require BASE_PATH . '/gabela/helper/weather.php';
 getRequired(WEATHER_API);
 
 
 use Gabela\Users\Model\User;
 
-// require 'models/Users.php';
+// require 'models/User.php';
 
 // Check if the user is logged in
 $users = new User();
@@ -160,10 +160,10 @@ if (isset($_GET['id'])) {
                             </div>
                         </span>
                         <ul class="crumb">
-                            <?php if (isset($_SESSION['user_id'])): ?>
+                            <?php if (isset($_SESSION['user_id'])) : ?>
                                 <li><a href="<?= BASE_URL . 'tasks' ?>">Home</a>
                                 </li>
-                            <?php elseif (!isset($_SESSION['user_id'])): ?>
+                            <?php elseif (!isset($_SESSION['user_id'])) : ?>
                                 <li><a href="<?= BASE_URL . '' ?>">Home</a>
                                 </li>
                             <?php endif; ?>
@@ -186,25 +186,33 @@ if (isset($_GET['id'])) {
                     <hr class="blank">
 
                     <!-- user edit form -->
-                    <form style="width: 65%;" method="post" action="<?= EXTENTION_PATH ?>/users-edit-submit"
-                        class="form-horizontal">
+                    <form style="width: 65%;" method="post" action="<?= EXTENTION_PATH ?>/users-edit-submit" class="form-horizontal">
                         <input type="hidden" name="id" value="<?php echo $userData['id']; ?>">
 
                         <div class="form-group">
                             <label for="title" class="col-sm-2 ">Edit Name:</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="title" name="name"
-                                    value="<?php echo $userData['name']; ?>" required>
+                                <input type="text" class="form-control" id="title" name="name" value="<?php echo $userData['name']; ?>" required>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="due_date" class="col-sm-2 ">Edit City:</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="due_date" name="city"
-                                    value="<?php printValue($userData['city']); ?>" required>
+                                <input type="text" class="form-control" id="due_date" name="city" value="<?php printValue($userData['city']); ?>" required>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label for="role" class="col-sm-2">Edit User Role:</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" id="role" name="role" required>
+                                    <option value="user" <?php echo $userData['role'] === 'user' ? 'selected' : ''; ?>>User</option>
+                                    <option value="admin" <?php echo $userData['role'] === 'admin' ? 'selected' : ''; ?>>Admin</option>
+                                </select>
+                            </div>
+                        </div>
+
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">

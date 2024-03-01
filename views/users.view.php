@@ -180,8 +180,10 @@ $city = $usersClass->getWeatherCity();
                                 <th>User Name</th>
                                 <th>User City</th>
                                 <th>User Email</th>
+                                <?php if (User::isAdmin()): ?>
                                 <th data-orderable="false">Edit</th>
                                 <th data-orderable="false">Delete</th>
+                                <?php endif; ?>
                             </tr>
                         </thead>
                         <tbody>
@@ -203,6 +205,7 @@ $city = $usersClass->getWeatherCity();
                                     <td>
                                         <?php printValue($user->getEmail()); ?>
                                     </td>
+                                    <?php if (User::isAdmin()): ?>
                                     <td>
                                         <!-- Edit button -->
                                         <button onclick="editTask(<?php printValue($user->getUserId()); ?>)"
@@ -213,6 +216,7 @@ $city = $usersClass->getWeatherCity();
                                         <button onclick="deleteTask(<?php printValue($user->getUserId()); ?>)"
                                             class="btn btn-danger btn-sm">Delete</button>
                                     </td>
+                                    <?php endif; ?>
                                     <!-- JavaScript function to confirm and delete the task -->
                                     <script>
                                         function logoutNow() {

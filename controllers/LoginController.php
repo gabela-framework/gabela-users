@@ -30,6 +30,7 @@ class LoginController
 
     public function login()
     {
+        /**  @var User $user  */
         $user = $this->classManager->createInstance(User::class);
 
         // Check if the user is already logged in, then redirect to viewAllTasks.php

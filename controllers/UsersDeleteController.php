@@ -29,6 +29,7 @@ class UsersDeleteController
         if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
             $userId = $_GET['id'];
 
+            /**  @var User $user  */
             $user = $this->classManager->createInstance(User::class);
 
             if ($user->delete($userId)) {
