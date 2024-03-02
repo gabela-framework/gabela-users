@@ -52,7 +52,7 @@ class LoginController
                 return redirect('/tasks');
             } else {
                 // Authentication failed, show an error message
-                getRequired('User login failed.');
+                printValue('User login failed.');
                 $this->logger->critical('User login failed...');
 
                 return redirect('/');
