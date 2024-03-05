@@ -1,3 +1,3 @@
 <?php 
 
-define("USERS_PATH","__DIR__");
+define("USERS_PATH", __DIR__);

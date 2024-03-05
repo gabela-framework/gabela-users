@@ -4,24 +4,32 @@ namespace Gabela\Users\Controller;
 
 getRequired(USER_MODEL);
 
-use Gabela\Model\User;
-use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use Gabela\Model\User;
+use Gabela\Core\ClassManager;
+use Monolog\Handler\StreamHandler;
 
 class RegisterController
 {
     private $db;
     private $logger;
 
+    /**
+     * @var ClassManager
+     */
+    private $classManager;
+
     public function __construct()
     {
         $this->logger = new Logger('registration-controller');
         $this->logger->pushHandler(new StreamHandler('var/System.log', Logger::DEBUG));
+        $this->classManager = new ClassManager();
     }
 
     public function register()
     {
-        $user = new User();
+        /**  @var User $user  */
+        $user = $this->classManager->createInstance(User::class);
 
         // Handle login form submission logic
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {

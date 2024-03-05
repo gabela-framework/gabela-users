@@ -9,6 +9,6 @@ class LoginPageController extends AbstractController
     
     public  function index()
     {
-        $this->getTemplate(HOME_PAGE);
+        $this->getTemplate(USER_LOGIN_PAGE);
     }
 }
