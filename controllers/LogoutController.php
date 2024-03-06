@@ -30,7 +30,7 @@ class LogoutController
         setcookie('PHPSESSID', '', time() - 3600, $params['path'], $params['domain'], $params['secure'], $params['httponly']);
     
         
-        $logger->info("User logged out at " . date('t') );
+        $logger->info("User logged out at " . date('Y-m-d') );
         
         redirect('/');
         exit(); // Ensure that script execution stops after the redirect
