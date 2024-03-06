@@ -1,25 +1,9 @@
-<?php
-//require BASE_PATH . '/vendor/autoload.php';
-
-use GeoNames\Client as GeoNamesClient;
-use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
-
-$logger = new Logger('Geo-location');
-// Now add some handlers
-$logger->pushHandler(new StreamHandler('var/System.log', Logger::DEBUG));
-
-$geo = new GeoNamesClient('maneza');
-
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>Login / Register - VMP Tasks management</title>
+    <title>Login / Register - Gabela Tasks</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Responsive Minimal Bootstrap Theme">
     <meta name="keywords" content="responsive,minimal,bootstrap,theme">
@@ -176,58 +160,6 @@ $geo = new GeoNamesClient('maneza');
 
                         <div class="span8">
                             <div>
-                                <?php
-
-                                // // get a list of supported endpoints
-// $endpoints = $geo->getSupportedEndpoints();
-                                
-                                // // get info for country
-// // note that I'm using the array destructor introduced in PHP 7.1
-// [$country] = $geo->countryInfo([
-//     'country' => 'za',
-//     'lang'    => 'xh', // display info in Russian
-// ]);
-                                
-                                // // country name (in Russian)
-// $country_name = $country->countryName;
-                                
-                                // // spoken languages (ISO-639-1)
-// $country_languages = $country->languages;
-                                
-                                // // $jsonfile = file_get_contents("http://api.geonames.org/searchJSON?username=ksuhiyp&country=za&maxRows=1000&style=SHORT");
-// $jsonfile = file_get_contents("http://api.geonames.org/searchJSON?username=maneza&country=za&maxRows=1000&style=SHORT");
-// $country = json_decode($jsonfile, true);
-// // $cit = array();
-                                
-                                // foreach ($country['geonames'] as $geoname) {
-//     $cit = $geoname['name'];
-//     $logger->info( $cit);
-// }
-                                
-                                // try {
-//     $params = [
-//         'country' => 'ZA', // Country code for South Africa
-//         'featureClass' => 'P', // Cities
-//         'maxRows' => 10000, // Maximum number of rows to return
-//         'south' => -34.8341700029999, // Replace with the actual southernmost latitude of the region you're interested in
-//         'north' => -22.1250300579999, // Replace with the actual northernmost latitude
-//         'east' => 32.944984945, // Replace with the actual easternmost longitude
-//         'west' => 16.45189,
-//     ];
-                                
-                                //     $cities = $geo->cities($params);
-                                
-                                //     foreach ($cities as $city) {
-//         // ... other relevant data
-//         $logger->info( $city->name);
-//     }
-// } catch (Exception $e) {
-//     echo "Error: " . $e->getMessage();
-//     $logger->error($e->getMessage());
-//     $logger->error($e->getTraceAsString());
-// }
-                                ?>
-                            </div>
 
                             <h3 style="padding-bottom: 20px;"> Log In To The Task Management</h3>
                             Feel free to contact us here (111) 333 7777 if you having issue.<br />
