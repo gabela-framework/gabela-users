@@ -2,34 +2,45 @@
 
 namespace Gabela\Users\Controller;
 
-getRequired(USER_MODEL);
+getRequired(USER_MODULE_MODEL);
 
-use Monolog\Logger;
-use Gabela\Model\User;
 use Gabela\Core\ClassManager;
+use Gabela\Core\Events\NewUserRegisteredEvent;
+use Gabela\Users\Model\User;
+use League\Event\EventDispatcher;
 use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
 class RegisterController
 {
-    private $db;
     private $logger;
 
     /**
-     * @var ClassManager
+     * @var EventDispatcher
      */
-    private $classManager;
+    private EventDispatcher $dispatcher;
 
-    public function __construct()
+    /**
+     * @var User
+     */
+    private User $userCollection;
+
+    /**
+     * Register constructor
+     *
+     * @param EventDispatcher $dispatcher
+     * @param User $userCollection
+     */
+    public function __construct(EventDispatcher $dispatcher, User $userCollection)
     {
         $this->logger = new Logger('registration-controller');
         $this->logger->pushHandler(new StreamHandler('var/System.log', Logger::DEBUG));
-        $this->classManager = new ClassManager();
+        $this->userCollection = $userCollection;
+        $this->dispatcher = $dispatcher;
     }
 
     public function register()
     {
-        /**  @var User $user  */
-        $user = $this->classManager->createInstance(User::class);
 
         // Handle login form submission logic
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -40,19 +51,25 @@ class RegisterController
             $password = $_POST['password'];
 
             // Check if the password meets certain criteria
-            if ($user->validatePassword($password)) {
+            if ($this->userCollection->validatePassword($password)) {
                 // Password is valid, create the user
-                $user->setName($name);
-                $user->setCity($city);
-                $user->setEmail($email);
-                $user->setPassword($password);
+                $this->userCollection->setName($name);
+                $this->userCollection->setCity($city);
+                $this->userCollection->setEmail($email);
+                $this->userCollection->setPassword($password);
 
                 $this->logger->error(var_export($this->db, true));
 
                 try {
-                    if ($user->save()) {
-                        $_SESSION['registration_success'] = 'Heey!!! ' . $user->getName() . ' you registered successfully. Please Login..';
-                        redirect('/');
+                    if ($this->userCollection->save()) {
+                        $_SESSION['registration_success'] = 'Heey!!! ' . $this->userCollection->getName() . ' you registered successfully. Please Login..';
+
+                        $userId = $this->userCollection->getUserId();
+
+                        $event = new NewUserRegisteredEvent((int) $userId);
+                        $this->dispatcher->dispatch($event); //uncomment this to dispatch emails to the new user when registering
+
+                        redirect('/login');
                     }
                 } catch (\Throwable $th) {
                     printValue('An error occurred. Please try again later.' . $th);

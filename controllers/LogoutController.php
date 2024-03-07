@@ -12,15 +12,14 @@ class LogoutController
      */
     private $logger;
 
-    public function __construct(Logger $logger = null)
+    public function __construct($logger)
     {
-        $this->logger = $logger;
+        $this->logger = new Logger('logout-controller');
     }
 
     public function logout()
     {
-        $logger = new Logger('logout-controller');
-        $logger->pushHandler(new StreamHandler('var/System.log', Logger::DEBUG));
+        $this->logger->pushHandler(new StreamHandler('var/System.log', Logger::DEBUG));
     
         $this->flush();
     
@@ -30,7 +29,7 @@ class LogoutController
         setcookie('PHPSESSID', '', time() - 3600, $params['path'], $params['domain'], $params['secure'], $params['httponly']);
     
         
-        $logger->info("User logged out at " . date('Y-m-d') );
+        $this->logger->info("User logged out at " . date('Y-m-d') );
         
         redirect('/');
         exit(); // Ensure that script execution stops after the redirect

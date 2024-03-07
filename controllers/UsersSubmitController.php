@@ -2,33 +2,32 @@
 
 namespace Gabela\Users\Controller;
 
+use Exception;
+
 getRequired(USER_MODEL);
 
-use Throwable;
-use Monolog\Logger;
 use Gabela\Model\User;
-use Gabela\Core\ClassManager;
 use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
 class UsersSubmitController
 {
     private $logger;
 
     /**
-     * @var ClassManager
+     * @var User
      */
-    private $classManager;
-    public function __construct($logger = null)
+    private User $userCollection;
+
+    public function __construct(User $userCollection)
     {
         $this->logger = new Logger('users-controller');
         $this->logger->pushHandler(new StreamHandler('var/System.log', Logger::DEBUG));
-        $this->classManager = new ClassManager();
+        $this->userCollection = $userCollection;
     }
 
     public function submit()
     {
-        /**  @var User $user  */
-        $user = $this->classManager->createInstance(User::class);
         // Check if the user is logged in
         if (!isset($_SESSION['user_id'])) {
             redirect('/index');
@@ -37,21 +36,22 @@ class UsersSubmitController
         // Check if the form is submitted
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Use setters to update user properties
-            $user->setUserId($_POST['id']);
-            $user->setName($_POST['name']);
-            $user->setCity($_POST['city']);
-            $user->setRole($_POST['role']);
+            $this->userCollection->setUserId($_POST['id']);
+            $this->userCollection->setName($_POST['name']);
+            $this->userCollection->setCity($_POST['city']);
+            $this->userCollection->setRole($_POST['role']);
 
             try {
                 // Update the user in the database
-                if ($user->update()) {
-                    $this->logger->info('User {' . $user->getName() . '} is updated succesfully.');
+                if ($this->userCollection->update()) {
+                    $this->logger->info('User {' . $this->userCollection->getName() . '} is updated succesfully.');
 
                     // Redirect back to edit page with success message
                     return redirect("/users?id={$_POST['id']}&edit_success=1");
                 }
-            } catch (Throwable $e) {
+            } catch (Exception $e) {
                 $this->logger->error('An exception occurred', ['exception' => $e]);
+                throw new  Exception($e);
             }
         }
     }
