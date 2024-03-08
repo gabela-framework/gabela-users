@@ -2,14 +2,15 @@
 
 namespace Gabela\Users\Controller;
 
-getRequired(USER_MODEL);
+getRequired(USER_MODULE_MODEL);
 
+use Gabela\Core\AbstractController;
 use Monolog\Logger;
-use Gabela\Model\User;
+use Gabela\Users\Model\User;
 use Gabela\Core\ClassManager;
 use Monolog\Handler\StreamHandler;
 
-class LoginController
+class LoginController extends AbstractController
 {
     /**
      * @var Logger
@@ -21,18 +22,35 @@ class LoginController
      */
     private $classManager;
 
-    public function __construct()
+    /**
+     * @var User
+     */
+    private User $userCollection;
+
+    public function __construct(User $userCollection)
     {
         $this->logger = new Logger('registration-controller');
         $this->logger->pushHandler(new StreamHandler('var/System.log', Logger::DEBUG));
-        $this->classManager = new ClassManager();
+        $this->userCollection = $userCollection;
     }
 
+    /**
+     * Get Login page
+     *
+     * @return void
+     */
+    public function index()
+    {
+        $this->getTemplate(USER_LOGIN_PAGE);
+    }
+
+    /**
+     * User Login 
+     *
+     * @return string
+     */
     public function login()
     {
-        /**  @var User $user  */
-        $user = $this->classManager->createInstance(User::class);
-
         // Check if the user is already logged in, then redirect to viewAllTasks.php
         if (isset($_SESSION['user_id'])) {
             redirect('/tasks');
@@ -46,8 +64,8 @@ class LoginController
             // Create an instance of the User class
 
             // Authenticate the user
-            if ($user->login($email, $password)) {
-                $this->logger->info("The use {$user->getName()} logged in successfully");
+            if ($this->userCollection->login($email, $password)) {
+                $this->logger->info("The use {$this->userCollection->getName()} logged in successfully");
 
                 return redirect('/tasks');
             } else {
@@ -55,7 +73,7 @@ class LoginController
                 printValue('User login failed.');
                 $this->logger->critical('User login failed...');
 
-                return redirect('/');
+                return redirect('/login');
 
             }
         }

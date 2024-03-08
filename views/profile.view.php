@@ -11,6 +11,7 @@
  getRequired(WEATHER_API);
 
 use Gabela\Model\User;
+use Gabela\Core\Session;
 
 // User class
 $users = new User();
@@ -82,7 +83,7 @@ $city = $users->getWeatherCity();
                     <div class="row">
                         <div class="span6 info-text">
                             <strong>Phone:</strong> (111) 333 7777 <span
-                                class="separator"></span><strong>Email:</strong> <a href="#">contact@example.com</a>
+                                class="separator"></span><strong>Email:</strong> <a href="#"><?php printValue(Session::getCurrentUserEmail()) ?></a>
                         </div>
                         <div class="span6 text-right">
                             <div class="social-icons">

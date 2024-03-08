@@ -226,7 +226,7 @@ class User implements UserInterface
 
             // Check if a user with the provided email exists
             if ($result->num_rows === 0) {
-                $_SESSION['login_error'] = 'Aaaahh!! Check your email/password...';
+                $_SESSION['login_error'] = 'Aaaahh!! the user with the provided email does not exest...';
                 return false; // User not found
             }
 
@@ -237,6 +237,7 @@ class User implements UserInterface
             if (password_verify($password, $user['password'])) {
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_name'] = $user['name'];
+                $_SESSION['user_email'] = $user['email'];
                 $_SESSION['login_success'] = 'Hey ' . $user['name'] . ' you are logged in successfully!';
 
                 return true;
@@ -502,6 +503,34 @@ class User implements UserInterface
         $sql = "SELECT * FROM users WHERE id = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param("i", $userId);
+
+        if ($stmt->execute()) {
+            // Execute the query
+            $result = $stmt->get_result();
+
+            // Check if a user with the provided user_id exists
+            if ($result->num_rows === 1) {
+                // Fetch user data
+                $userData = $result->fetch_assoc();
+                return $userData;
+            }
+        }
+
+        return null; // User not found or query failed
+    }
+
+        /**
+     * Get a user by Email Address
+     *
+     * @param string $email
+     * @return mixed
+     */
+    public function getUserByEmail($email)
+    {
+        // Prepare the SQL statement to retrieve user data by user_id
+        $sql = "SELECT * FROM users WHERE email = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("s", $email);
 
         if ($stmt->execute()) {
             // Execute the query

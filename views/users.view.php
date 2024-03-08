@@ -7,10 +7,11 @@
  * @copyright Copyright © 2023 VMP By Maneza
  */
 
-getRequired(USER_MODEL);
+getRequired(USER_MODULE_MODEL);
 getRequired(WEATHER_API);
 
-use Gabela\Model\User;
+use Gabela\Core\Session;
+use Gabela\Users\Model\User;
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
@@ -44,7 +45,7 @@ $city = $usersClass->getWeatherCity();
                     <div class="row">
                         <div class="span6 info-text">
                             <strong>Phone:</strong> (111) 333 7777 <span
-                                class="separator"></span><strong>Email:</strong> <a href="#">contact@example.com</a>
+                                class="separator"></span><strong>Email:</strong> <a href="#"><?php printValue(Session::getCurrentUserEmail()) ?></a>
                         </div>
                         <div class="span6 text-right">
                             <div class="social-icons">
@@ -130,7 +131,7 @@ $city = $usersClass->getWeatherCity();
                 } else {
                     ?>
 
-                    <table id="taskTable" class="table table-bordered">
+                    <table id="taskTable" class="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>User ID</th>
