@@ -4,7 +4,6 @@ namespace Gabela\Users\Controller;
 
 getRequired(USER_MODULE_MODEL);
 
-use Gabela\Core\ClassManager;
 use Gabela\Core\Events\NewUserRegisteredEvent;
 use Gabela\Users\Model\User;
 use League\Event\EventDispatcher;
