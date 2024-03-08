@@ -2,7 +2,7 @@
 
 namespace Gabela\Users\Controller;
 
-getRequired(USER_MODEL);
+//getRequired(USER_MODULE_MODEL);
 
 use Monolog\Logger;
 use Gabela\Model\User as UserCollection;
@@ -30,7 +30,6 @@ class LoginController
     {
         $this->logger = new Logger('registration-controller');
         $this->logger->pushHandler(new StreamHandler('var/System.log', Logger::DEBUG));
-        $this->classManager = new ClassManager();
         $this->userCollection = $userCollection;
     }
 
