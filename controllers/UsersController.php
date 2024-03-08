@@ -10,4 +10,14 @@ class UsersController extends AbstractController
     {
         $this->getTemplate(USER_HOMEPAGE);   
     }
+
+    public function edit()
+    {
+        $this->getTemplate(USER_UPDATE_PAGE);
+    }
+
+    public function profile()
+    {
+        $this->getTemplate(USER_PROFILES);
+    }
 }

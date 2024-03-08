@@ -1,3 +1,7 @@
+<?php
+use Gabela\Core\Session;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,7 +54,7 @@
                     <div class="row">
                         <div class="span6 info-text">
                             <strong>Phone:</strong> (111) 333 7777 <span
-                                class="separator"></span><strong>Email:</strong> <a href="#">contact@example.com</a>
+                                class="separator"></span><strong>Email:</strong> <a href="#"><?php printValue(Session::getCurrentUserEmail()) ?></a>
                         </div>
                         <div class="span6 text-right">
                             <div class="social-icons">

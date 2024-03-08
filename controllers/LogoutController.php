@@ -2,13 +2,14 @@
 
 namespace Gabela\Users\Controller;
 
-use Monolog\Logger;
+use Gabela\Core\Session;
 use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
 class LogoutController
 {
     /**
-     * @var Logger 
+     * @var Logger
      */
     private $logger;
 
@@ -20,6 +21,13 @@ class LogoutController
     public function logout()
     {
         $this->logger->pushHandler(new StreamHandler('var/System.log', Logger::DEBUG));
+<<<<<<< HEAD
+
+        Session::destroy();
+
+        $this->logger->info("User logged out at " . date('Y-m-d'));
+
+=======
     
         $this->flush();
     
@@ -31,13 +39,8 @@ class LogoutController
         
         $this->logger->info("User logged out at " . date('Y-m-d') );
         
+>>>>>>> d63a2764be67c9a28dd6c0d98b681cc0903d1571
         redirect('/');
         exit(); // Ensure that script execution stops after the redirect
     }
-    
-    public function flush()
-    {
-        $_SESSION = [];
-    }
-    
 }
