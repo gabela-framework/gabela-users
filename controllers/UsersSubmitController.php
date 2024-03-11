@@ -3,17 +3,10 @@
 namespace Gabela\Users\Controller;
 
 use Exception;
-<<<<<<< HEAD
 
 getRequired(USER_MODULE_MODEL);
 
 use Gabela\Users\Model\User;
-=======
-
-getRequired(USER_MODEL);
-
-use Gabela\Model\User;
->>>>>>> d63a2764be67c9a28dd6c0d98b681cc0903d1571
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
