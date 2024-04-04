@@ -111,7 +111,7 @@ use Gabela\Core\Session;
                             });
                         </script>';
                             // Clear the session variable
-                            unset($_SESSION['registration_error']);
+                            Session::flush();
                         }
                         ?>
 
@@ -134,7 +134,7 @@ use Gabela\Core\Session;
                             });
                         </script>';
                             // Clear the session variable
-                            unset($_SESSION['login_error']);
+                            Session::flush();
                         }
                         ?>
 
@@ -143,7 +143,7 @@ use Gabela\Core\Session;
                             <div class="alert alert-success">
                                 <?php printValue($_SESSION['registration_success']); ?>
                             </div>
-                            <?php unset($_SESSION['registration_success']); // Clear the message after displaying
+                            <?php Session::flush(); // Clear the message after displaying
                                 ?>
                         <?php endif; ?>
 
@@ -151,7 +151,7 @@ use Gabela\Core\Session;
                             <div class="alert alert-success">
                                 <?php printValue($_SESSION['updated_password']); ?>
                             </div>
-                            <?php unset($_SESSION['updated_password']); // Clear the message after displaying
+                            <?php Session::flush(); // Clear the message after displaying
                                 ?>
                         <?php endif; ?>
                         <!-- Inside your HTML body -->

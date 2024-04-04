@@ -24,9 +24,9 @@ class LogoutController
 
         Session::destroy();
 
-        $this->logger->info("User logged out at " . date('Y-m-d'));
+        $this->logger->info("User logged out at " . date('Y-m-d H:i:s'));
 
-        redirect('/');
+        redirect('/login');
         exit(); // Ensure that script execution stops after the redirect
     }
 }

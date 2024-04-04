@@ -4,9 +4,11 @@ namespace Gabela\Users\Controller;
 
 getRequired(USER_MODULE_MODEL);
 
+use Gabela\Controller\EmailSenderController;
+use Gabela\Core\EventDispatcher;
+use Gabela\Core\Events\EmailSenderListener;
 use Gabela\Core\Events\NewUserRegisteredEvent;
 use Gabela\Users\Model\User;
-use League\Event\EventDispatcher;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
@@ -57,23 +59,23 @@ class RegisterController
                 $this->userCollection->setEmail($email);
                 $this->userCollection->setPassword($password);
 
-                $this->logger->error(var_export($this->db, true));
-
                 try {
                     if ($this->userCollection->save()) {
                         $_SESSION['registration_success'] = 'Heey!!! ' . $this->userCollection->getName() . ' you registered successfully. Please Login..';
 
                         $userId = $this->userCollection->getUserId();
 
+                        $listener = new EmailSenderListener(new EmailSenderController());
+                        $this->dispatcher->addListener('user_welcome_email', [$listener, '__invoke']);
                         $event = new NewUserRegisteredEvent((int) $userId);
-                        $this->dispatcher->dispatch($event); //uncomment this to dispatch emails to the new user when registering
+                        $this->dispatcher->dispatch('user_welcome_email', $event); //uncomment this to dispatch emails to the new user when registering
 
                         redirect('/login');
                     }
                 } catch (\Throwable $th) {
                     printValue('An error occurred. Please try again later.' . $th);
                     $_SESSION['registration_error'] = 'An error occurred while registering. This email address is already in use.';
-                    $this->logger->critical(var_export($th, true));
+                    $this->logger->critical($th);
                 }
             }
         }
