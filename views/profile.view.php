@@ -7,7 +7,7 @@
  * @copyright Copyright © 2023 VMP By Maneza
  */
 
- getRequired(USER_MODEL);
+ //getRequired(USER_MODEL);
  getRequired(WEATHER_API);
 
 use Gabela\Model\User;

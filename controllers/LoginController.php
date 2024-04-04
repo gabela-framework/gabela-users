@@ -5,10 +5,10 @@ namespace Gabela\Users\Controller;
 getRequired(USER_MODULE_MODEL);
 
 use Gabela\Core\AbstractController;
-use Monolog\Logger;
-use Gabela\Users\Model\User;
 use Gabela\Core\ClassManager;
+use Gabela\Users\Model\User;
 use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
 class LoginController extends AbstractController
 {
@@ -37,7 +37,7 @@ class LoginController extends AbstractController
     /**
      * Get Login page
      *
-     * @return void
+     * @return void the path will always be string
      */
     public function index()
     {
@@ -45,7 +45,7 @@ class LoginController extends AbstractController
     }
 
     /**
-     * User Login 
+     * User Login
      *
      * @return string
      */
@@ -65,7 +65,7 @@ class LoginController extends AbstractController
 
             // Authenticate the user
             if ($this->userCollection->login($email, $password)) {
-                $this->logger->info("The use {$this->userCollection->getName()} logged in successfully");
+                $this->logger->info("The user {$this->userCollection->getName()} logged in successfully");
 
                 return redirect('/tasks');
             } else {
