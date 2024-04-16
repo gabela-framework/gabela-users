@@ -4,6 +4,9 @@
  * @package   Task Management
  * @author    Ntabethemba Ntshoza
  * @date      11-10-2023
+ * 
+ * @var array $data
+ * 
  * @copyright Copyright © 2023 VMP By Maneza
  */
 
@@ -18,8 +21,6 @@ if (!isset($_SESSION['user_id'])) {
     redirect('/');
 }
 
-// User class
-$usersClass = new User();
 
 getIncluded(WEB_CONFIGS);
 
@@ -27,7 +28,7 @@ if (isset($config['weather']['apikey'])) {
     $apiKey = $config['weather']['apikey'][0];
 }
 
-$city = $usersClass->getWeatherCity();
+$city = $data['weatherCity'];
 ?>
 
 <!DOCTYPE html>
@@ -124,7 +125,7 @@ $city = $usersClass->getWeatherCity();
                 <?php endif; ?>
 
                 <?php
-                $allusers = $usersClass->getallusers();
+                $allusers = $data['allUsers'];
                 // Check if there are no tasks, and display the "Create Task" button if true
                 if (empty($allusers)) {
                     echo '<a  href="createTask.php" class="btn btn-primary">Create a Task</a>';
@@ -146,7 +147,7 @@ $city = $usersClass->getWeatherCity();
                         </thead>
                         <tbody>
                             <?php
-                            $users = $usersClass->getallusers();
+                            $users = $data['allUsers'];
                             ?>
                             <!-- Loop through your tasks and display them as table rows -->
                             <?php foreach ($users as $user): ?>

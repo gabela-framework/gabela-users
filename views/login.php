@@ -1,4 +1,8 @@
 <?php
+
+/**
+ * @var array $data
+ */
 use Gabela\Core\Session;
 ?>
 
@@ -7,7 +11,7 @@ use Gabela\Core\Session;
 
 <head>
     <meta charset="utf-8">
-    <title>Login / Register - Gabela Tasks</title>
+    <title><?= $data['tittle'] ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Responsive Minimal Bootstrap Theme">
     <meta name="keywords" content="responsive,minimal,bootstrap,theme">
@@ -54,7 +58,7 @@ use Gabela\Core\Session;
                     <div class="row">
                         <div class="span6 info-text">
                             <strong>Phone:</strong> (111) 333 7777 <span
-                                class="separator"></span><strong>Email:</strong> <a href="#"><?php printValue(Session::getCurrentUserEmail()) ?></a>
+                                class="separator"></span><strong>Email:</strong> <a href="#"><?php printValue($data['userEmail']) ?></a>
                         </div>
                         <div class="span6 text-right">
                             <div class="social-icons">
