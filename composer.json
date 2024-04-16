@@ -2,7 +2,6 @@
     "name": "gabela/gabela-users",
     "description": "Gabela user's module",
     "type": "plugin",
-    "version": "1.5",
     "keywords": ["gabela", "users", "management"],
     "license": "MIT",
     "authors": [
