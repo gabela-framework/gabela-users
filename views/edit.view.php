@@ -4,18 +4,16 @@
  * @package   user Management
  * @author    Ntabethemba Ntshoza
  * @date      11-10-2023
+ * 
+ * @var array $data
+ * 
  * @copyright Copyright © 2023 VMP By Maneza
  */
 
-// require __DIR__ . '/../../models/User.php';
 require __DIR__ . '/../models/User.php';
-//require BASE_PATH . '/gabela/helper/weather.php';
 getRequired(WEATHER_API);
 
-
 use Gabela\Users\Model\User;
-
-// require 'models/User.php';
 
 // Check if the user is logged in
 $users = new User();
@@ -31,7 +29,7 @@ if (isset($config['weather']['apikey'])) {
     $apiKey = $config['weather']['apikey'][0];
 }
 
-$city = $users->getWeatherCity();
+$city = $data['weatherCity'];
 
 // Fetch the user details for the given ID
 if (isset($_GET['id'])) {
@@ -59,7 +57,7 @@ if (isset($_GET['id'])) {
 
 <head>
     <meta charset="utf-8">
-    <title>Edit Task - VMP Tasks management</title>
+    <title><?= $data['tittle'] ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Responsive Minimal Bootstrap Theme">
     <meta name="keywords" content="responsive,minimal,bootstrap,theme">

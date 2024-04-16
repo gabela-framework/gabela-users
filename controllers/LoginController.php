@@ -4,11 +4,12 @@ namespace Gabela\Users\Controller;
 
 getRequired(USER_MODULE_MODEL);
 
-use Gabela\Core\AbstractController;
-use Gabela\Core\ClassManager;
-use Gabela\Users\Model\User;
-use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use Gabela\Core\Session;
+use Gabela\Users\Model\User;
+use Gabela\Core\ClassManager;
+use Monolog\Handler\StreamHandler;
+use Gabela\Core\AbstractController;
 
 class LoginController extends AbstractController
 {
@@ -37,11 +38,15 @@ class LoginController extends AbstractController
     /**
      * Get Login page
      *
-     * @return void the path will always be string
+     * @return string the path will always be string
      */
     public function index()
     {
-        $this->getTemplate(USER_LOGIN_PAGE);
+        $data = [
+            'tittle' => 'Login / Register - Gabela Framework',
+            'userEmail' => Session::getCurrentUserEmail()
+        ];
+        return $this->renderTemplate(USER_LOGIN_PAGE, $data);
     }
 
     /**
