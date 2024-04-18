@@ -15,8 +15,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Gabela\\Users\\Controller\\": "gabela-users/controllers/",
-            "Gabela\\Users\\Model\\": "gabela-users/models/"
+            "Gabela\\Users\\Controller\\": "gabela-users/src/controllers/",
+            "Gabela\\Users\\Model\\": "gabela-users/src/models/"
         }
     }
 }
