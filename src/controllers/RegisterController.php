@@ -63,12 +63,12 @@ class RegisterController
                     if ($this->userCollection->save()) {
                         $_SESSION['registration_success'] = 'Heey!!! ' . $this->userCollection->getName() . ' you registered successfully. Please Login..';
 
-                        $userId = $this->userCollection->getUserId();
+                       // $userId = $this->userCollection->getUserId();
 
-                        $listener = new EmailSenderListener(new EmailSenderController());
-                        $this->dispatcher->addListener('user_welcome_email', [$listener, '__invoke']);
-                        $event = new NewUserRegisteredEvent((int) $userId);
-                        $this->dispatcher->dispatch('user_welcome_email', $event); //uncomment this to dispatch emails to the new user when registering
+                        // $listener = new EmailSenderListener(new EmailSenderController());
+                        // $this->dispatcher->addListener('user_welcome_email', [$listener, '__invoke']);
+                        // $event = new NewUserRegisteredEvent((int) $userId);
+                        // $this->dispatcher->dispatch('user_welcome_email', $event); //uncomment this to dispatch emails to the new user when registering
 
                         redirect('/login');
                     }
@@ -80,6 +80,6 @@ class RegisterController
             }
         }
 
-        return redirect('/');
+        return redirect('/login');
     }
 }

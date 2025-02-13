@@ -48,6 +48,11 @@ class UsersController extends AbstractController
 
     public function profile()
     {
-        $this->getTemplate(USER_PROFILES);
+        // $this->getTemplate(USER_PROFILES);
+        $userData = [
+            'data' => $this->userCollection->getUserById($_GET['user_id'])
+        ] ;
+
+        $this->renderTemplate(USER_PROFILES, $userData);
     }
 }
